@@ -26,7 +26,7 @@ public class GenerateRandomJsonController {
     private RandomGeneratorService randomGeneratorService;
 
     @GetMapping("/{caseType}")
-    public ResponseEntity<Vehicle> getRandomVehicle(@PathVariable String caseType) throws JsonProcessingException {
+    public ResponseEntity<String> getRandomVehicle(@PathVariable String caseType) throws JsonProcessingException {
         Vehicle vehicle = randomGeneratorService.generateVehicles();
         ObjectMapper objectMapperVersion = new ObjectMapper();
         objectMapperVersion.registerModule(new JavaTimeModule());
@@ -38,8 +38,8 @@ public class GenerateRandomJsonController {
                         .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
         );
         objectMapperVersion.setAnnotationIntrospector(new VersioningPropertiesIntrospector(caseType));
-        String str = objectMapperVersion.writeValueAsString(objectMapperVersion
-                .convertValue(vehicle, new TypeReference<Vehicle>() {}));
+        Object obj = objectMapperVersion.convertValue(vehicle, new TypeReference<Vehicle>() {});
+        String str = objectMapperVersion.writeValueAsString(obj);
         return new ResponseEntity(str, HttpStatus.OK);
     }
 }

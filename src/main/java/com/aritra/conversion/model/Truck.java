@@ -2,7 +2,8 @@ package com.aritra.conversion.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -26,5 +27,15 @@ public class Truck {
                     value = "TruckNumber"
             )})
     private long truckNumber;
+
+    @VersioningProperties({
+            @VersioningProperties.Property(
+                    version = "CAMELCASE",
+                    value = "serviceDetails"),
+            @VersioningProperties.Property(
+                    version = "PASCALCASE",
+                    value = "ServiceDetails"
+            )})
+    private List<ServiceDetails> serviceDetails;
     public Truck() { }
 }

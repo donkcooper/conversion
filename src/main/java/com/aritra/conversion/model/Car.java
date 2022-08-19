@@ -3,6 +3,9 @@ package com.aritra.conversion.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.Instant;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class Car {
@@ -25,5 +28,15 @@ public class Car {
                     value = "CarNumber"
             )})
     private long carNumber;
+
+    @VersioningProperties({
+            @VersioningProperties.Property(
+                    version = "CAMELCASE",
+                    value = "serviceDetails"),
+            @VersioningProperties.Property(
+                    version = "PASCALCASE",
+                    value = "ServiceDetails"
+            )})
+    private List<ServiceDetails> serviceDetails;
     public Car() { }
 }
