@@ -7,9 +7,7 @@ import com.aritra.conversion.model.Vehicle;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -18,13 +16,23 @@ public class RandomGeneratorService {
         List<Car> carList = new ArrayList<>();
         List<Truck> truckList = new ArrayList<>();
         Vehicle vehicle = new Vehicle();
+        List<Map<String, String>> mapList = new ArrayList<>();
         for(int i = 0 ; i < 5; i++) {
-           carList.add(new Car(generateRandomNames(), i, generateServiceDetails()));
-           truckList.add(new Truck(generateRandomNames(), i, generateServiceDetails()));
+            Map<String, String> mapValue = new LinkedHashMap<>();
+            carList.add(new Car(generateRandomNames(), i, generateServiceDetails()));
+            truckList.add(new Truck(generateRandomNames(), i, generateServiceDetails()));
+            mapValue.put("tp", "FalconeService");
+            mapValue.put("val", Integer.toString(i));
+            mapList.add(mapValue);
         }
         vehicle.setTruckList(truckList);
         vehicle.setCarList(carList);
         vehicle.setTotalVehicles(Integer.toString((carList.size() + truckList.size())));
+        Map<String, List<Map<String, String>>> rskInptDataMap = new LinkedHashMap<>();
+        rskInptDataMap.put("rskInptData", mapList);
+        List<Map<String, List<Map<String, String>>>> rskCntxtList = new ArrayList<>();
+        rskCntxtList.add(rskInptDataMap);
+        vehicle.setRskCntxt(rskCntxtList);
         return vehicle;
     }
 

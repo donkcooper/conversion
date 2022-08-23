@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Vehicle {
+public class Vehicle<T> {
     @VersioningProperties({
             @VersioningProperties.Property(
                     version = "CAMELCASE",
@@ -38,4 +38,14 @@ public class Vehicle {
                     value = "TruckList"
             )})
     private List<Truck> truckList;
+
+    @VersioningProperties({
+            @VersioningProperties.Property(
+                    version = "CAMELCASE",
+                    value = "rskCntxt"),
+            @VersioningProperties.Property(
+                    version = "PASCALCASE",
+                    value = "RskCntxt"
+            )})
+    private T rskCntxt;
 }

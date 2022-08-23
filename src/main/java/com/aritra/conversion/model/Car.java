@@ -3,7 +3,6 @@ package com.aritra.conversion.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.Instant;
 import java.util.List;
 
 @Data
